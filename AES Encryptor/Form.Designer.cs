@@ -1,6 +1,6 @@
 ﻿namespace AES_Encryptor
 {
-    partial class Form1
+    partial class Form
     {
         /// <summary>
         /// Wymagana zmienna projektanta.
@@ -28,10 +28,20 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            this.SuspendLayout();
+            // 
+            // Form
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Text = "Form1";
+            this.ClientSize = new System.Drawing.Size(584, 361);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+            this.Name = "Form";
+            this.ShowIcon = false;
+            this.Text = "AES Encryptor";
+            this.ResumeLayout(false);
+
         }
 
         #endregion
