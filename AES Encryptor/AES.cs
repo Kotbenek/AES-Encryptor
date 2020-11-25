@@ -122,7 +122,7 @@ namespace AES_Encryptor
             {
                 for (int j = 0; j < 4; j++)
                 {
-                    state[j + i * 4] = Sbox[j + i * 4];
+                    state[j + i * 4] = Sbox[state[j + i * 4]];
                 }
             }
         }
