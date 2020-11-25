@@ -101,9 +101,31 @@ namespace AES_Encryptor
             throw new NotImplementedException();
         }
 
-        void Multiply()
+        /// <summary>
+        /// Function multiplying two binary polynomials modulo (x^8 + x^4 + x^3 + x + 1)
+        /// </summary>
+        /// <param name="a">Binary polynomial</param>
+        /// <param name="b">Binary polynomial</param>
+        /// <returns>Multiplied binary polynomials modulo (x^8 + x^4 + x^3 + x + 1)</returns>
+        byte Multiply(byte a, byte b)
         {
-            throw new NotImplementedException();
+            byte r = 0;            
+            byte ax = a;            
+            byte y = b;
+            for (int i = 0; i < 8; i++)
+            {
+                //Check the least significant bit
+                //If (y & 0x01) == 0, r ^= 0 (r remains unchanged)
+                //If (y & 0x01) == 1, r ^= ax
+                r ^= (byte)(ax * (y & 0x01));
+
+                //Multiply ax by the polynomial x modulo (x^8 + x^4 + x^3 + x + 1)
+                ax = xtime(ax);
+
+                //Right shift y (prepare data in the least significant bit)
+                y >>= 1;
+            }
+            return r;
         }
 
         void RotWord()
@@ -164,6 +186,18 @@ namespace AES_Encryptor
         void SubWord()
         {
             throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Function multiplying the binary polynomial by the polynomial x modulo (x^8 + x^4 + x^3 + x + 1)
+        /// </summary>
+        /// <param name="b">Binary polynomial</param>
+        /// <returns>Binary polynomial multiplied by the polynomial x modulo (x^8 + x^4 + x^3 + x + 1)</returns>
+        byte xtime(byte b)
+        {
+            //If (b >> 7) == 0, return (b << 1)
+            //If (b >> 7) == 1, return (b << 1) ^ 0x1B
+            return (byte)((b << 1) ^ (((b >> 7) & 0x01)) * 0x1B);
         }
     }
 }
