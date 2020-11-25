@@ -111,18 +111,52 @@ namespace AES_Encryptor
             throw new NotImplementedException();
         }
 
-        void ShiftRows()
+        /// <summary>
+        /// AES ShiftRows transformation
+        /// </summary>
+        /// <param name="state">State array (usage: state[column + row * Nb])</param>
+        void ShiftRows(byte[] state)
         {
-            throw new NotImplementedException();
+            byte temp;
+
+            //Shift row 0 - 0 columns to the left
+            //It is already in this state, no need to shift
+
+            //Shift row 1 - 1 column to the left
+            temp = state[0 + 1 * Nb];
+            state[0 + 1 * Nb] = state[1 + 1 * Nb];
+            state[1 + 1 * Nb] = state[2 + 1 * Nb];
+            state[2 + 1 * Nb] = state[3 + 1 * Nb];
+            state[3 + 1 * Nb] = temp;
+
+            //Shift row 2 - 2 columns to the left
+            temp = state[0 + 2 * Nb];
+            state[0 + 2 * Nb] = state[2 + 2 * Nb];
+            state[2 + 2 * Nb] = temp;
+            
+            temp = state[1 + 2 * Nb];
+            state[1 + 2 * Nb] = state[3 + 2 * Nb];
+            state[3 + 2 * Nb] = temp;
+
+            //Shift row 3 - 3 columns to the left
+            temp = state[3 + 3 * Nb];
+            state[3 + 3 * Nb] = state[2 + 3 * Nb];
+            state[2 + 3 * Nb] = state[1 + 3 * Nb];
+            state[1 + 3 * Nb] = state[0 + 3 * Nb];
+            state[0 + 3 * Nb] = temp;
         }
 
+        /// <summary>
+        /// AES SubBytes transformation
+        /// </summary>
+        /// <param name="state">State array (usage: state[column + row * Nb])</param>
         void SubBytes(byte[] state)
         {
             for (int i = 0; i < 4; i++)
             {
-                for (int j = 0; j < 4; j++)
+                for (int j = 0; j < Nb; j++)
                 {
-                    state[j + i * 4] = Sbox[state[j + i * 4]];
+                    state[j + i * Nb] = Sbox[state[j + i * Nb]];
                 }
             }
         }
