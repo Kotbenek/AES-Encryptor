@@ -116,9 +116,15 @@ namespace AES_Encryptor
             throw new NotImplementedException();
         }
 
-        void SubBytes()
+        void SubBytes(byte[] state)
         {
-            throw new NotImplementedException();
+            for (int i = 0; i < 4; i++)
+            {
+                for (int j = 0; j < 4; j++)
+                {
+                    state[j + i * 4] = Sbox[j + i * 4];
+                }
+            }
         }
 
         void SubWord()
