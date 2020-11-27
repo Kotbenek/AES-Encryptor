@@ -158,9 +158,19 @@ namespace AES_Encryptor
             return r;
         }
 
-        void RotWord()
+        /// <summary>
+        /// AES RotWord function
+        /// </summary>
+        /// <param name="word">A word to rotate</param>
+        void RotWord(byte[] word)
         {
-            throw new NotImplementedException();
+            byte temp;
+
+            temp = word[0];
+            word[0] = word[1];
+            word[1] = word[2];
+            word[2] = word[3];
+            word[3] = temp;
         }
 
         /// <summary>
