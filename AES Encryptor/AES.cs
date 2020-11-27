@@ -12,6 +12,8 @@ namespace AES_Encryptor
 
         //Cipher key
         byte[] K;
+        //Round key
+        byte[] Round_key;
         //Number of 32-bit words comprising the Cipher key
         int Nk;
         //Number of rounds
@@ -65,15 +67,14 @@ namespace AES_Encryptor
         /// AES AddRoundKey transformation
         /// </summary>
         /// <param name="state">State array (usage: state[column + row * Nb])</param>
-        /// <param name="round_key">Round key</param>
         /// <param name="round_number">Number of the current round</param>
-        void AddRoundKey(byte[] state, byte[] round_key, int round_number)
+        void AddRoundKey(byte[] state, int round_number)
         {
             for (int i = 0; i < 4; i++)
             {
                 for (int j = 0; j < Nb; j++)
                 {
-                    state[j + i * Nb] ^= round_key[j + i * Nb + round_number * Nb * 4];
+                    state[j + i * Nb] ^= Round_key[j + i * Nb + round_number * Nb * 4];
                 }
             }
         }
