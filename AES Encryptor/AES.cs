@@ -223,9 +223,16 @@ namespace AES_Encryptor
             }
         }
 
-        void SubWord()
+        /// <summary>
+        /// AES SubWord function
+        /// </summary>
+        /// <param name="word">A word to substitute</param>
+        void SubWord(byte[] word)
         {
-            throw new NotImplementedException();
+            for (int i = 0; i < 4; i++)
+            {
+                word[i] = Sbox[word[i]];
+            }
         }
 
         /// <summary>
