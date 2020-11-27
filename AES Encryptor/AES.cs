@@ -104,9 +104,44 @@ namespace AES_Encryptor
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// AES KeyExpansion function
+        /// </summary>
         void KeyExpansion()
         {
-            throw new NotImplementedException();
+            byte[] temp = new byte[4];
+
+            for (int i = 0; i < Nk; i++)
+            {
+                for (int j = 0; j < 4; j++)
+                {
+                    Round_key[4 * i + j] = K[4 * i + j];
+                }
+            }
+
+            for (int i = Nk; i < Nb * (Nr + 1); i++)
+            {
+                for (int j = 0; j < 4; j++)
+                {
+                    temp[j] = Round_key[4 * (i - 1) + j];
+                }
+
+                if (i % Nk == 0)
+                {
+                    RotWord(temp);
+                    SubWord(temp);
+                    temp[0] ^= Rcon[i / Nk];
+                }
+                else if (Nk > 6 && i % Nk == 4)
+                {
+                    SubWord(temp);
+                }
+
+                for (int j = 0; j < 4; j++)
+                {
+                    Round_key[4 * i + j] = (byte)(Round_key[4 * (i - Nk) + j] ^ temp[j]);
+                }
+            }
         }
 
         /// <summary>
