@@ -61,9 +61,21 @@ namespace AES_Encryptor
             0xA0, 0xE0, 0x3B, 0x4D, 0xAE, 0x2A, 0xF5, 0xB0, 0xC8, 0xEB, 0xBB, 0x3C, 0x83, 0x53, 0x99, 0x61,
             0x17, 0x2B, 0x04, 0x7E, 0xBA, 0x77, 0xD6, 0x26, 0xE1, 0x69, 0x14, 0x63, 0x55, 0x21, 0x0C, 0x7D };
 
-        void AddRoundKey()
+        /// <summary>
+        /// AES AddRoundKey transformation
+        /// </summary>
+        /// <param name="state">State array (usage: state[column + row * Nb])</param>
+        /// <param name="round_key">Round key</param>
+        /// <param name="round_number">Number of the current round</param>
+        void AddRoundKey(byte[] state, byte[] round_key, int round_number)
         {
-            throw new NotImplementedException();
+            for (int i = 0; i < 4; i++)
+            {
+                for (int j = 0; j < Nb; j++)
+                {
+                    state[j + i * Nb] ^= round_key[j + i * Nb + round_number * Nb * 4];
+                }
+            }
         }
 
         void Cipher()
