@@ -74,14 +74,30 @@ namespace AES_Encryptor
             {
                 for (int j = 0; j < Nb; j++)
                 {
-                    state[j + i * Nb] ^= Round_key[j + i * Nb + round_number * Nb * 4];
+                    state[j + i * Nb] ^= Round_key[i + j * 4 + round_number * Nb * 4];
                 }
             }
         }
 
-        void Cipher()
+        /// <summary>
+        /// AES Cipher function
+        /// </summary>
+        /// <param name="data">Data to encrypt, formatted as the State (size: 4 * Nb)</param>
+        void Cipher(byte[] data)
         {
-            throw new NotImplementedException();
+            AddRoundKey(data, 0);
+
+            for (int i = 1; i < Nr; i++)
+            {
+                SubBytes(data);
+                ShiftRows(data);
+                MixColumns(data);
+                AddRoundKey(data, i);
+            }
+
+            SubBytes(data);
+            ShiftRows(data);
+            AddRoundKey(data, Nr);
         }
 
         void InvCipher()
