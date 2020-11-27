@@ -100,7 +100,7 @@ namespace AES_Encryptor
         /// AES MixColumns transformation
         /// </summary>
         /// <param name="state">State array (usage: state[column + row * Nb])</param>
-        public void MixColumns(byte[] state)
+        void MixColumns(byte[] state)
         {
             //Create the temporary state
             byte[] temp_state = new byte[4 * Nb];
