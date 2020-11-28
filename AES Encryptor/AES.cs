@@ -18,6 +18,8 @@ namespace AES_Encryptor
         int Nk;
         //Number of rounds
         int Nr;
+        //Initialization vector
+        byte[] IV;
 
 
         //Constants
@@ -62,6 +64,152 @@ namespace AES_Encryptor
             0x60, 0x51, 0x7F, 0xA9, 0x19, 0xB5, 0x4A, 0x0D, 0x2D, 0xE5, 0x7A, 0x9F, 0x93, 0xC9, 0x9C, 0xEF,
             0xA0, 0xE0, 0x3B, 0x4D, 0xAE, 0x2A, 0xF5, 0xB0, 0xC8, 0xEB, 0xBB, 0x3C, 0x83, 0x53, 0x99, 0x61,
             0x17, 0x2B, 0x04, 0x7E, 0xBA, 0x77, 0xD6, 0x26, 0xE1, 0x69, 0x14, 0x63, 0x55, 0x21, 0x0C, 0x7D };
+
+        /// <summary>
+        /// Key length in bits
+        /// </summary>
+        public enum KeyLength
+        {
+            AES128,
+            AES192,
+            AES256
+        }
+
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="key_length">AES key length</param>
+        public AES(KeyLength key_length)
+        {
+            if (key_length == KeyLength.AES128)
+            {
+                Nk = 4;
+                Nr = 10;
+                Round_key = new byte[176];
+            }
+            else if (key_length == KeyLength.AES192)
+            {
+                Nk = 6;
+                Nr = 12;
+                Round_key = new byte[208];
+            }
+            else if (key_length == KeyLength.AES256)
+            {
+                Nk = 8;
+                Nr = 14;
+                Round_key = new byte[240];
+            }
+        }
+
+        /// <summary>
+        /// Function setting the AES key
+        /// </summary>
+        /// <param name="key">AES key</param>
+        public void Set_Key(byte[] key)
+        {
+            //AES128
+            if (Nk == 4)
+            {
+                if (key.Length != 16) throw new ArgumentException("AES128 requires a 16-byte key", "key");
+
+                K = new byte[16];
+                for (int i = 0; i < 16; i++)
+                {
+                    K[i] = key[i];
+                }
+            }
+            //AES192
+            else if (Nk == 6)
+            {
+                if (key.Length != 24) throw new ArgumentException("AES192 requires a 24-byte key", "key");
+
+                K = new byte[24];
+                for (int i = 0; i < 24; i++)
+                {
+                    K[i] = key[i];
+                }
+            }
+            //AES256
+            else if (Nk == 8)
+            {
+                if (key.Length != 32) throw new ArgumentException("AES256 requires a 32-byte key", "key");
+
+                K = new byte[32];
+                for (int i = 0; i < 32; i++)
+                {
+                    K[i] = key[i];
+                }
+            }
+
+            KeyExpansion();
+        }
+
+        /// <summary>
+        /// Function setting the AES initialization vector
+        /// </summary>
+        /// <param name="iv">AES initialization vector</param>
+        public void Set_IV(byte[] iv)
+        {
+            if (iv.Length != 16) throw new ArgumentException("IV must be 16 bytes long", "iv");
+
+            IV = new byte[4 * Nb];
+            for (int i = 0; i < 4 * Nb; i++)
+            {
+                IV[i] = iv[i];
+            }
+        }
+
+        /// <summary>
+        /// Function encrypting the data using AES in CBC mode
+        /// </summary>
+        /// <param name="data">Data to encrypt</param>
+        void Encrypt_CBC(byte[] data)
+        {
+            if (K == null) throw new Exception("Key must be set");
+            if (IV == null) throw new Exception("IV must be set");
+
+            byte[] state = new byte[4 * Nb];
+
+            for (int i = 0; i < data.Length; i += 4 * Nb)
+            {
+                //Add IV
+                for (int j = 0; j < 4; j++)
+                {
+                    for (int k = 0; k < Nb; k++)
+                    {
+                        data[k + j * Nb + i] ^= IV[k + j * Nb];
+                    }
+                }
+                
+                //Prepare data
+                for (int j = 0; j < 4; j++)
+                {
+                    for (int k = 0; k < Nb; k++)
+                    {
+                        state[k + j * Nb] = data[j + k * 4 + i];
+                    }
+                }
+
+                //Encrypt data
+                Cipher(state);
+
+                //Unload data
+                for (int j = 0; j < 4; j++)
+                {
+                    for (int k = 0; k < Nb; k++)
+                    {
+                        data[j + k * 4 + i] = state[k + j * Nb];
+                    }
+                }
+
+                //Save IV for next block
+                for (int j = 0; j < 4 * Nb; j++)
+                {
+                    IV[j] = data[j + i];
+                }
+            }
+        }
+
 
         /// <summary>
         /// AES AddRoundKey transformation
