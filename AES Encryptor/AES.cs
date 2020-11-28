@@ -100,9 +100,25 @@ namespace AES_Encryptor
             AddRoundKey(data, Nr);
         }
 
-        void InvCipher()
+        /// <summary>
+        /// AES InvCipher function
+        /// </summary>
+        /// <param name="data">Data to decrypt, formatted as the State (size: 4 * Nb)</param>
+        void InvCipher(byte[] data)
         {
-            throw new NotImplementedException();
+            AddRoundKey(data, Nr);
+
+            for (int i = Nr - 1; i > 0; i--)
+            {
+                InvShiftRows(data);
+                InvSubBytes(data);
+                AddRoundKey(data, i);
+                InvMixColumns(data);
+            }
+
+            InvShiftRows(data);
+            InvSubBytes(data);
+            AddRoundKey(data, 0);
         }
 
         /// <summary>
