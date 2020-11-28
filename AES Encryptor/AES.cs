@@ -110,9 +110,39 @@ namespace AES_Encryptor
             throw new NotImplementedException();
         }
 
-        void InvShiftRows()
+        /// <summary>
+        /// AES InvShiftRows transformation
+        /// </summary>
+        /// <param name="state">State array (usage: state[column + row * Nb])</param>
+        void InvShiftRows(byte[] state)
         {
-            throw new NotImplementedException();
+            byte temp;
+
+            //Shift row 0 - 0 columns to the right
+            //It is already in this state, no need to shift
+
+            //Shift row 1 - 1 column to the right
+            temp = state[3 + 1 * Nb];
+            state[3 + 1 * Nb] = state[2 + 1 * Nb];
+            state[2 + 1 * Nb] = state[1 + 1 * Nb];
+            state[1 + 1 * Nb] = state[0 + 1 * Nb];
+            state[0 + 1 * Nb] = temp;
+
+            //Shift row 2 - 2 columns to the right
+            temp = state[0 + 2 * Nb];
+            state[0 + 2 * Nb] = state[2 + 2 * Nb];
+            state[2 + 2 * Nb] = temp;
+
+            temp = state[1 + 2 * Nb];
+            state[1 + 2 * Nb] = state[3 + 2 * Nb];
+            state[3 + 2 * Nb] = temp;
+
+            //Shift row 3 - 3 columns to the right
+            temp = state[0 + 3 * Nb];
+            state[0 + 3 * Nb] = state[1 + 3 * Nb];
+            state[1 + 3 * Nb] = state[2 + 3 * Nb];
+            state[2 + 3 * Nb] = state[3 + 3 * Nb];
+            state[3 + 3 * Nb] = temp;
         }
 
         void InvSubBytes()
