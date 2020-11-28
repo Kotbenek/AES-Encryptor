@@ -145,9 +145,19 @@ namespace AES_Encryptor
             state[3 + 3 * Nb] = temp;
         }
 
-        void InvSubBytes()
+        /// <summary>
+        /// AES InvSubBytes transformation
+        /// </summary>
+        /// <param name="state">State array (usage: state[column + row * Nb])</param>
+        void InvSubBytes(byte[] state)
         {
-            throw new NotImplementedException();
+            for (int i = 0; i < 4; i++)
+            {
+                for (int j = 0; j < Nb; j++)
+                {
+                    state[j + i * Nb] = Inv_Sbox[state[j + i * Nb]];
+                }
+            }
         }
 
         /// <summary>
