@@ -105,9 +105,26 @@ namespace AES_Encryptor
             throw new NotImplementedException();
         }
 
-        void InvMixColumns()
+        /// <summary>
+        /// AES InvMixColumns transformation
+        /// </summary>
+        /// <param name="state">State array (usage: state[column + row * Nb])</param>
+        void InvMixColumns(byte[] state)
         {
-            throw new NotImplementedException();
+            //Create the temporary state
+            byte[] temp_state = new byte[4 * Nb];
+
+            //Mix each column
+            for (int i = 0; i < Nb; i++)
+            {
+                temp_state[i + 0 * Nb] = (byte)(Multiply(0x0E, state[i + 0 * Nb]) ^ Multiply(0x0B, state[i + 1 * Nb]) ^ Multiply(0x0D, state[i + 2 * Nb]) ^ Multiply(0x09, state[i + 3 * Nb]));
+                temp_state[i + 1 * Nb] = (byte)(Multiply(0x09, state[i + 0 * Nb]) ^ Multiply(0x0E, state[i + 1 * Nb]) ^ Multiply(0x0B, state[i + 2 * Nb]) ^ Multiply(0x0D, state[i + 3 * Nb]));
+                temp_state[i + 2 * Nb] = (byte)(Multiply(0x0D, state[i + 0 * Nb]) ^ Multiply(0x09, state[i + 1 * Nb]) ^ Multiply(0x0E, state[i + 2 * Nb]) ^ Multiply(0x0B, state[i + 3 * Nb]));
+                temp_state[i + 3 * Nb] = (byte)(Multiply(0x0B, state[i + 0 * Nb]) ^ Multiply(0x0D, state[i + 1 * Nb]) ^ Multiply(0x09, state[i + 2 * Nb]) ^ Multiply(0x0E, state[i + 3 * Nb]));
+            }
+
+            //Copy temporary state to state
+            for (int i = 0; i < 4 * Nb; i++) state[i] = temp_state[i];
         }
 
         /// <summary>
