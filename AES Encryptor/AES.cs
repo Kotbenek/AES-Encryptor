@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace AES_Encryptor
 {
@@ -266,6 +267,65 @@ namespace AES_Encryptor
                     IV[j] = next_IV[j];
                 }
             }
+        }
+
+        /// <summary>
+        /// Function encrypting the data using AES in CBC mode and PKCS#7 padding
+        /// </summary>
+        /// <param name="input">Input stream containing the data to encrypt</param>
+        /// <param name="output">Output stream to which the encrypted data will be written</param>
+        /// <param name="buffer_length">Data buffer size in AES blocks (1 AES block = 16 bytes)</param>
+        public void Encrypt_CBC_PKCS7(Stream input, Stream output, int buffer_length = 256)
+        {
+            if (input == null) throw new ArgumentNullException("input");
+            if (output == null) throw new ArgumentNullException("output");
+            if (buffer_length <= 0) throw new ArgumentException("Incorrect buffer length value", "buffer_length");
+
+            //Data buffer
+            byte[] buffer = new byte[buffer_length * 4 * Nb];
+
+            //Read first data chunk
+            int data_read = input.Read(buffer, 0, buffer.Length);
+
+            //While the buffer is full
+            while (data_read == buffer.Length)
+            {
+                //Encrypt the buffer
+                Encrypt_CBC(buffer);
+
+                //Write the encrypted buffer to the output stream
+                output.Write(buffer, 0, buffer.Length);
+                
+                //Read next data chunk
+                data_read = input.Read(buffer, 0, buffer.Length);
+            }
+
+            //Calculate the amount of missing bytes for the last AES block
+            //Missing bytes will be filled with PKCS#7 padding
+            byte bytes_missing = (byte)(4 * Nb - data_read % (4 * Nb));
+            //If there are no bytes missing, add 1 block of data, so the padding is always present
+            if (bytes_missing == 0) bytes_missing = 4 * Nb;
+            
+            //Prepare correct size data buffer for the last chunk of data
+            byte[] last_buffer = new byte[data_read + bytes_missing];
+
+            //Copy data from the buffer
+            for (int i = 0; i < data_read; i++)
+            {
+                last_buffer[i] = buffer[i];
+            }
+
+            //Fill missing bytes with PKCS#7 padding
+            for (int i = data_read; i < last_buffer.Length; i++)
+            {
+                last_buffer[i] = bytes_missing;
+            }
+
+            //Encrypt the buffer
+            Encrypt_CBC(last_buffer);
+
+            //Write the encrypted buffer to the output stream
+            output.Write(last_buffer, 0, last_buffer.Length);
         }
 
 
