@@ -210,6 +210,64 @@ namespace AES_Encryptor
             }
         }
 
+        /// <summary>
+        /// Function decrypting the data using AES in CBC mode
+        /// </summary>
+        /// <param name="data">Data to decrypt</param>
+        void Decrypt_CBC(byte[] data)
+        {
+            if (K == null) throw new Exception("Key must be set");
+            if (IV == null) throw new Exception("IV must be set");
+
+            byte[] state = new byte[4 * Nb];
+            byte[] next_IV = new byte[4 * Nb];
+
+            for (int i = 0; i < data.Length; i += 4 * Nb)
+            {
+                //Store IV for next block
+                for (int j = 0; j < 4 * Nb; j++)
+                {
+                    next_IV[j] = data[j + i];
+                }
+
+                //Prepare data
+                for (int j = 0; j < 4; j++)
+                {
+                    for (int k = 0; k < Nb; k++)
+                    {
+                        state[k + j * Nb] = data[j + k * 4 + i];
+                    }
+                }
+
+                //Decrypt data
+                InvCipher(state);
+
+                //Unload data
+                for (int j = 0; j < 4; j++)
+                {
+                    for (int k = 0; k < Nb; k++)
+                    {
+                        data[j + k * 4 + i] = state[k + j * Nb];
+                    }
+                }
+
+                //Add IV
+                for (int j = 0; j < 4; j++)
+                {
+                    for (int k = 0; k < Nb; k++)
+                    {
+                        data[k + j * Nb + i] ^= IV[k + j * Nb];
+                    }
+                }
+
+                //Save IV for next block
+                for (int j = 0; j < 4 * Nb; j++)
+                {
+                    IV[j] = next_IV[j];
+                }
+            }
+        }
+
 
         /// <summary>
         /// AES AddRoundKey transformation
