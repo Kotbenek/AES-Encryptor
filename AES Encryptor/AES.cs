@@ -328,6 +328,68 @@ namespace AES_Encryptor
             output.Write(last_buffer, 0, last_buffer.Length);
         }
 
+        /// <summary>
+        /// Function decrypting the data using AES in CBC mode and PKCS#7 padding
+        /// </summary>
+        /// <param name="input">Input stream containing the data to decrypt</param>
+        /// <param name="output">Output stream to which the decrypted data will be written</param>
+        /// <param name="buffer_length">Data buffer size in AES blocks (1 AES block = 16 bytes)</param>
+        public void Decrypt_CBC_PKCS7(Stream input, Stream output, int buffer_length = 256)
+        {
+            if (input == null) throw new ArgumentNullException("input");
+            if (output == null) throw new ArgumentNullException("output");
+            if (buffer_length <= 0) throw new ArgumentException("Incorrect buffer length value", "buffer_length");
+            if (!input.CanSeek) throw new ArgumentException("Input stream must support seeking", "input");
+            
+            //Data buffer
+            byte[] buffer = new byte[buffer_length * 4 * Nb];
+
+            //Read first data chunk
+            int data_read = input.Read(buffer, 0, buffer.Length);
+
+            //While the buffer contains data
+            while (data_read > 0)
+            {
+                //Decrypt the buffer
+                Decrypt_CBC(buffer);
+
+                //If there is more data in the input stream
+                if (input.Length - input.Position > 0)
+                {
+                    //Write the decrypted buffer to the output stream
+                    output.Write(buffer, 0, buffer.Length);
+                }
+                //If there is no more data in the input stream
+                else
+                {
+                    //Read the PKCS#7 padding value
+                    byte padding = buffer[data_read - 1];
+
+                    //Check the PKCS#7 padding
+
+                    //Padding is never zero
+                    //If the read padding value is zero, the padding is corrupted and the decryption was not successful
+                    if (padding == 0) throw new Exception("Padding corrupted");
+
+                    //Check every padding byte
+                    for (int i = 0; i < padding; i++)
+                    {
+                        //If checked padding byte is not equal to the expected value
+                        if (buffer[data_read - 1 - i] != padding)
+                        {
+                            //Padding is corrupted and the decryption was not successful
+                            throw new Exception("Padding corrupted");
+                        }
+                    }
+
+                    //Write the decrypted buffer with removed padding to the output stream
+                    output.Write(buffer, 0, data_read - padding);
+                }                
+
+                //Read next data chunk
+                data_read = input.Read(buffer, 0, buffer.Length);
+            }            
+        }
 
         /// <summary>
         /// AES AddRoundKey transformation
