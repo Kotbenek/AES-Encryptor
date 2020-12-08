@@ -104,7 +104,7 @@ namespace AES_Encryptor
             //If the file was selected successfully
             if (ofd.ShowDialog() == DialogResult.OK)
             {
-                //Get input file path
+                //Set input file path
                 txtInput.Text = ofd.FileName;
 
                 //Set default output file path depending on the file extension
@@ -116,6 +116,22 @@ namespace AES_Encryptor
                 {
                     txtOutput.Text = ofd.FileName + ".encrypted";
                 }                
+            }
+        }
+
+        /// <summary>
+        /// Browsing for an output file to encrypt/decrypt to
+        /// </summary>
+        private void btnBrowseOutput_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog sfd = new SaveFileDialog();
+            //SaveFileDialog filter depending on input file extension
+            sfd.Filter = (Path.GetExtension(txtInput.Text) == ".encrypted") ? "All files (*.*)|*.*" : "Encrypted files (*.encrypted)|*.encrypted|All files (*.*)|*.*";
+
+            //Set output file path
+            if (sfd.ShowDialog() == DialogResult.OK)
+            {
+                txtOutput.Text = sfd.FileName;
             }
         }
     }
