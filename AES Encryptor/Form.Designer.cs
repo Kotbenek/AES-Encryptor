@@ -95,6 +95,7 @@
             this.btnBrowseInput.Text = "Browse...";
             this.btnBrowseInput.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnBrowseInput.UseVisualStyleBackColor = true;
+            this.btnBrowseInput.Click += new System.EventHandler(this.btnBrowseInput_Click);
             // 
             // btnBrowseOutput
             // 

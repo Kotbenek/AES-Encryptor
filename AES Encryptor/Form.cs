@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
 
 namespace AES_Encryptor
 {
@@ -90,6 +91,32 @@ namespace AES_Encryptor
             //Clear input and output textboxes
             txtInput.Text = string.Empty;
             txtOutput.Text = string.Empty;
+        }
+
+        /// <summary>
+        /// Browsing for an input file to encrypt/decrypt
+        /// </summary>
+        private void btnBrowseInput_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Filter = "All files (*.*)|*.*|Encrypted files (*.encrypted)|*.encrypted";
+
+            //If the file was selected successfully
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                //Get input file path
+                txtInput.Text = ofd.FileName;
+
+                //Set default output file path depending on the file extension
+                if (Path.GetExtension(ofd.FileName) == ".encrypted")
+                {
+                    txtOutput.Text = ofd.FileName.Substring(0, ofd.FileName.Length - Path.GetExtension(ofd.FileName).Length);
+                }
+                else
+                {
+                    txtOutput.Text = ofd.FileName + ".encrypted";
+                }                
+            }
         }
     }
 }
