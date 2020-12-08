@@ -36,8 +36,8 @@
             this.btnBrowseInput = new System.Windows.Forms.Button();
             this.btnBrowseOutput = new System.Windows.Forms.Button();
             this.grpInputType = new System.Windows.Forms.GroupBox();
-            this.rdbFile = new System.Windows.Forms.RadioButton();
             this.rdbText = new System.Windows.Forms.RadioButton();
+            this.rdbFile = new System.Windows.Forms.RadioButton();
             this.lblKey = new System.Windows.Forms.Label();
             this.txtKey = new System.Windows.Forms.TextBox();
             this.lblIV = new System.Windows.Forms.Label();
@@ -68,15 +68,19 @@
             // 
             // txtInput
             // 
+            this.txtInput.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.txtInput.Location = new System.Drawing.Point(12, 25);
             this.txtInput.Name = "txtInput";
+            this.txtInput.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txtInput.Size = new System.Drawing.Size(479, 20);
             this.txtInput.TabIndex = 2;
             // 
             // txtOutput
             // 
+            this.txtOutput.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.txtOutput.Location = new System.Drawing.Point(12, 64);
             this.txtOutput.Name = "txtOutput";
+            this.txtOutput.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txtOutput.Size = new System.Drawing.Size(479, 20);
             this.txtOutput.TabIndex = 3;
             // 
@@ -108,12 +112,23 @@
             // 
             this.grpInputType.Controls.Add(this.rdbText);
             this.grpInputType.Controls.Add(this.rdbFile);
-            this.grpInputType.Location = new System.Drawing.Point(497, 90);
+            this.grpInputType.Location = new System.Drawing.Point(497, 96);
             this.grpInputType.Name = "grpInputType";
-            this.grpInputType.Size = new System.Drawing.Size(75, 75);
+            this.grpInputType.Size = new System.Drawing.Size(75, 68);
             this.grpInputType.TabIndex = 6;
             this.grpInputType.TabStop = false;
             this.grpInputType.Text = "Input type";
+            // 
+            // rdbText
+            // 
+            this.rdbText.AutoSize = true;
+            this.rdbText.Location = new System.Drawing.Point(6, 42);
+            this.rdbText.Name = "rdbText";
+            this.rdbText.Size = new System.Drawing.Size(46, 17);
+            this.rdbText.TabIndex = 1;
+            this.rdbText.Text = "Text";
+            this.rdbText.UseVisualStyleBackColor = true;
+            this.rdbText.CheckedChanged += new System.EventHandler(this.Input_type_CheckedChanged);
             // 
             // rdbFile
             // 
@@ -126,16 +141,7 @@
             this.rdbFile.TabStop = true;
             this.rdbFile.Text = "File";
             this.rdbFile.UseVisualStyleBackColor = true;
-            // 
-            // rdbText
-            // 
-            this.rdbText.AutoSize = true;
-            this.rdbText.Location = new System.Drawing.Point(6, 42);
-            this.rdbText.Name = "rdbText";
-            this.rdbText.Size = new System.Drawing.Size(46, 17);
-            this.rdbText.TabIndex = 1;
-            this.rdbText.Text = "Text";
-            this.rdbText.UseVisualStyleBackColor = true;
+            this.rdbFile.CheckedChanged += new System.EventHandler(this.Input_type_CheckedChanged);
             // 
             // lblKey
             // 
