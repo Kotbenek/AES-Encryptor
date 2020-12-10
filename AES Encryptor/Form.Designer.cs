@@ -45,6 +45,8 @@
             this.btnEncrypt = new System.Windows.Forms.Button();
             this.btnDecrypt = new System.Windows.Forms.Button();
             this.pbProgress = new System.Windows.Forms.ProgressBar();
+            this.chkInputHex = new System.Windows.Forms.CheckBox();
+            this.chkDecryptionOutputHex = new System.Windows.Forms.CheckBox();
             this.grpInputType.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -190,6 +192,7 @@
             this.btnEncrypt.Text = "Encrypt";
             this.btnEncrypt.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnEncrypt.UseVisualStyleBackColor = true;
+            this.btnEncrypt.Click += new System.EventHandler(this.btnEncrypt_Click);
             // 
             // btnDecrypt
             // 
@@ -210,11 +213,33 @@
             this.pbProgress.Size = new System.Drawing.Size(560, 23);
             this.pbProgress.TabIndex = 13;
             // 
+            // chkInputHex
+            // 
+            this.chkInputHex.AutoSize = true;
+            this.chkInputHex.Location = new System.Drawing.Point(307, 8);
+            this.chkInputHex.Name = "chkInputHex";
+            this.chkInputHex.Size = new System.Drawing.Size(124, 17);
+            this.chkInputHex.TabIndex = 14;
+            this.chkInputHex.Text = "Input as hex values?";
+            this.chkInputHex.UseVisualStyleBackColor = true;
+            // 
+            // chkDecryptionOutputHex
+            // 
+            this.chkDecryptionOutputHex.AutoSize = true;
+            this.chkDecryptionOutputHex.Location = new System.Drawing.Point(307, 47);
+            this.chkDecryptionOutputHex.Name = "chkDecryptionOutputHex";
+            this.chkDecryptionOutputHex.Size = new System.Drawing.Size(184, 17);
+            this.chkDecryptionOutputHex.TabIndex = 15;
+            this.chkDecryptionOutputHex.Text = "Decryption output as hex values?";
+            this.chkDecryptionOutputHex.UseVisualStyleBackColor = true;
+            // 
             // Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(584, 231);
+            this.Controls.Add(this.chkDecryptionOutputHex);
+            this.Controls.Add(this.chkInputHex);
             this.Controls.Add(this.pbProgress);
             this.Controls.Add(this.btnDecrypt);
             this.Controls.Add(this.btnEncrypt);
@@ -234,6 +259,7 @@
             this.Name = "Form";
             this.ShowIcon = false;
             this.Text = "AES Encryptor";
+            this.Load += new System.EventHandler(this.Form_Load);
             this.grpInputType.ResumeLayout(false);
             this.grpInputType.PerformLayout();
             this.ResumeLayout(false);
@@ -259,6 +285,8 @@
         private System.Windows.Forms.Button btnEncrypt;
         private System.Windows.Forms.Button btnDecrypt;
         private System.Windows.Forms.ProgressBar pbProgress;
+        private System.Windows.Forms.CheckBox chkInputHex;
+        private System.Windows.Forms.CheckBox chkDecryptionOutputHex;
     }
 }
 
