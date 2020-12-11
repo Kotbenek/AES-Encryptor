@@ -77,7 +77,7 @@
             this.txtInput.MaxLength = 2147483647;
             this.txtInput.Name = "txtInput";
             this.txtInput.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtInput.Size = new System.Drawing.Size(479, 20);
+            this.txtInput.Size = new System.Drawing.Size(579, 20);
             this.txtInput.TabIndex = 2;
             // 
             // txtOutput
@@ -87,14 +87,14 @@
             this.txtOutput.MaxLength = 2147483647;
             this.txtOutput.Name = "txtOutput";
             this.txtOutput.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtOutput.Size = new System.Drawing.Size(479, 20);
+            this.txtOutput.Size = new System.Drawing.Size(579, 20);
             this.txtOutput.TabIndex = 3;
             // 
             // btnBrowseInput
             // 
             this.btnBrowseInput.Image = ((System.Drawing.Image)(resources.GetObject("btnBrowseInput.Image")));
             this.btnBrowseInput.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnBrowseInput.Location = new System.Drawing.Point(497, 23);
+            this.btnBrowseInput.Location = new System.Drawing.Point(597, 23);
             this.btnBrowseInput.Name = "btnBrowseInput";
             this.btnBrowseInput.Size = new System.Drawing.Size(75, 24);
             this.btnBrowseInput.TabIndex = 4;
@@ -107,7 +107,7 @@
             // 
             this.btnBrowseOutput.Image = ((System.Drawing.Image)(resources.GetObject("btnBrowseOutput.Image")));
             this.btnBrowseOutput.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnBrowseOutput.Location = new System.Drawing.Point(497, 61);
+            this.btnBrowseOutput.Location = new System.Drawing.Point(597, 61);
             this.btnBrowseOutput.Name = "btnBrowseOutput";
             this.btnBrowseOutput.Size = new System.Drawing.Size(75, 24);
             this.btnBrowseOutput.TabIndex = 5;
@@ -120,7 +120,7 @@
             // 
             this.grpInputType.Controls.Add(this.rdbText);
             this.grpInputType.Controls.Add(this.rdbFile);
-            this.grpInputType.Location = new System.Drawing.Point(497, 96);
+            this.grpInputType.Location = new System.Drawing.Point(597, 96);
             this.grpInputType.Name = "grpInputType";
             this.grpInputType.Size = new System.Drawing.Size(75, 68);
             this.grpInputType.TabIndex = 6;
@@ -165,7 +165,7 @@
             this.txtKey.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.txtKey.Location = new System.Drawing.Point(12, 103);
             this.txtKey.Name = "txtKey";
-            this.txtKey.Size = new System.Drawing.Size(479, 20);
+            this.txtKey.Size = new System.Drawing.Size(579, 20);
             this.txtKey.TabIndex = 8;
             // 
             // lblIV
@@ -182,7 +182,7 @@
             this.txtIV.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.txtIV.Location = new System.Drawing.Point(12, 142);
             this.txtIV.Name = "txtIV";
-            this.txtIV.Size = new System.Drawing.Size(479, 20);
+            this.txtIV.Size = new System.Drawing.Size(579, 20);
             this.txtIV.TabIndex = 10;
             // 
             // btnEncrypt
@@ -215,13 +215,13 @@
             // 
             this.pbProgress.Location = new System.Drawing.Point(12, 197);
             this.pbProgress.Name = "pbProgress";
-            this.pbProgress.Size = new System.Drawing.Size(560, 23);
+            this.pbProgress.Size = new System.Drawing.Size(660, 23);
             this.pbProgress.TabIndex = 13;
             // 
             // chkInputHex
             // 
             this.chkInputHex.AutoSize = true;
-            this.chkInputHex.Location = new System.Drawing.Point(307, 8);
+            this.chkInputHex.Location = new System.Drawing.Point(407, 8);
             this.chkInputHex.Name = "chkInputHex";
             this.chkInputHex.Size = new System.Drawing.Size(176, 17);
             this.chkInputHex.TabIndex = 14;
@@ -231,7 +231,7 @@
             // chkDecryptionOutputHex
             // 
             this.chkDecryptionOutputHex.AutoSize = true;
-            this.chkDecryptionOutputHex.Location = new System.Drawing.Point(307, 47);
+            this.chkDecryptionOutputHex.Location = new System.Drawing.Point(407, 47);
             this.chkDecryptionOutputHex.Name = "chkDecryptionOutputHex";
             this.chkDecryptionOutputHex.Size = new System.Drawing.Size(184, 17);
             this.chkDecryptionOutputHex.TabIndex = 15;
@@ -268,7 +268,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(584, 231);
+            this.ClientSize = new System.Drawing.Size(684, 231);
             this.Controls.Add(this.btnRandomIV);
             this.Controls.Add(this.btnRandomKey);
             this.Controls.Add(this.chkDecryptionOutputHex);
