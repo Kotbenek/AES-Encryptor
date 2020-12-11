@@ -47,6 +47,8 @@
             this.pbProgress = new System.Windows.Forms.ProgressBar();
             this.chkInputHex = new System.Windows.Forms.CheckBox();
             this.chkDecryptionOutputHex = new System.Windows.Forms.CheckBox();
+            this.btnRandomKey = new System.Windows.Forms.Button();
+            this.btnRandomIV = new System.Windows.Forms.Button();
             this.grpInputType.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -189,7 +191,7 @@
             this.btnEncrypt.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnEncrypt.Location = new System.Drawing.Point(12, 168);
             this.btnEncrypt.Name = "btnEncrypt";
-            this.btnEncrypt.Size = new System.Drawing.Size(75, 23);
+            this.btnEncrypt.Size = new System.Drawing.Size(75, 24);
             this.btnEncrypt.TabIndex = 11;
             this.btnEncrypt.Text = "Encrypt";
             this.btnEncrypt.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -202,7 +204,7 @@
             this.btnDecrypt.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnDecrypt.Location = new System.Drawing.Point(93, 168);
             this.btnDecrypt.Name = "btnDecrypt";
-            this.btnDecrypt.Size = new System.Drawing.Size(75, 23);
+            this.btnDecrypt.Size = new System.Drawing.Size(75, 24);
             this.btnDecrypt.TabIndex = 12;
             this.btnDecrypt.Text = "Decrypt";
             this.btnDecrypt.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -236,11 +238,39 @@
             this.chkDecryptionOutputHex.Text = "Decryption output as hex values?";
             this.chkDecryptionOutputHex.UseVisualStyleBackColor = true;
             // 
+            // btnRandomKey
+            // 
+            this.btnRandomKey.Image = ((System.Drawing.Image)(resources.GetObject("btnRandomKey.Image")));
+            this.btnRandomKey.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnRandomKey.Location = new System.Drawing.Point(174, 168);
+            this.btnRandomKey.Name = "btnRandomKey";
+            this.btnRandomKey.Size = new System.Drawing.Size(100, 24);
+            this.btnRandomKey.TabIndex = 16;
+            this.btnRandomKey.Text = "Random Key";
+            this.btnRandomKey.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnRandomKey.UseVisualStyleBackColor = true;
+            this.btnRandomKey.Click += new System.EventHandler(this.btnRandomKey_Click);
+            // 
+            // btnRandomIV
+            // 
+            this.btnRandomIV.Image = ((System.Drawing.Image)(resources.GetObject("btnRandomIV.Image")));
+            this.btnRandomIV.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnRandomIV.Location = new System.Drawing.Point(280, 168);
+            this.btnRandomIV.Name = "btnRandomIV";
+            this.btnRandomIV.Size = new System.Drawing.Size(92, 24);
+            this.btnRandomIV.TabIndex = 17;
+            this.btnRandomIV.Text = "Random IV";
+            this.btnRandomIV.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnRandomIV.UseVisualStyleBackColor = true;
+            this.btnRandomIV.Click += new System.EventHandler(this.btnRandomIV_Click);
+            // 
             // Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(584, 231);
+            this.Controls.Add(this.btnRandomIV);
+            this.Controls.Add(this.btnRandomKey);
             this.Controls.Add(this.chkDecryptionOutputHex);
             this.Controls.Add(this.chkInputHex);
             this.Controls.Add(this.pbProgress);
@@ -290,6 +320,8 @@
         private System.Windows.Forms.ProgressBar pbProgress;
         private System.Windows.Forms.CheckBox chkInputHex;
         private System.Windows.Forms.CheckBox chkDecryptionOutputHex;
+        private System.Windows.Forms.Button btnRandomKey;
+        private System.Windows.Forms.Button btnRandomIV;
     }
 }
 

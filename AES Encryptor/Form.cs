@@ -18,6 +18,9 @@ namespace AES_Encryptor
         {
             InitializeComponent();
         }
+        
+        //Global variables
+        System.Security.Cryptography.RNGCryptoServiceProvider random = new System.Security.Cryptography.RNGCryptoServiceProvider();
                 
         private void Form_Load(object sender, EventArgs e)
         {
@@ -67,6 +70,9 @@ namespace AES_Encryptor
                 chkDecryptionOutputHex.Visible = false;
 
                 chkDecryptionOutputHex.Location = new Point(chkDecryptionOutputHex.Location.X, chkDecryptionOutputHex.Location.Y - 60);
+
+                btnRandomKey.Location = new Point(btnRandomKey.Location.X, btnRandomKey.Location.Y - 120);
+                btnRandomIV.Location = new Point(btnRandomIV.Location.X, btnRandomIV.Location.Y - 120);
             }
             else if (rdb == rdbText)
             {
@@ -99,6 +105,9 @@ namespace AES_Encryptor
                 chkDecryptionOutputHex.Visible = true;
 
                 chkDecryptionOutputHex.Location = new Point(chkDecryptionOutputHex.Location.X, chkDecryptionOutputHex.Location.Y + 60);
+
+                btnRandomKey.Location = new Point(btnRandomKey.Location.X, btnRandomKey.Location.Y + 120);
+                btnRandomIV.Location = new Point(btnRandomIV.Location.X, btnRandomIV.Location.Y + 120);
             }
             else
             {
@@ -193,6 +202,24 @@ namespace AES_Encryptor
         }
 
         /// <summary>
+        /// Function converting a byte array to string
+        /// </summary>
+        /// <param name="array">Byte array with data</param>
+        /// <returns>String representation of byte array (hex values separated by space)</returns>
+        string ByteArray_to_String(byte[] array)
+        {
+            StringBuilder sb = new StringBuilder();
+
+            foreach (byte b in array)
+            {
+                sb.Append(b.ToString("X2"));
+                sb.Append(" ");
+            }
+
+            return sb.ToString(0, sb.Length - 1);
+        }
+
+        /// <summary>
         /// Function setting the AES key from string
         /// </summary>
         /// <param name="aes">AES object</param>
@@ -257,17 +284,9 @@ namespace AES_Encryptor
 
                 //Get encrypted data
                 byte[] output = ms_output.ToArray();
-
-                //Convert to hex string
-                StringBuilder sb = new StringBuilder();
-                foreach (byte b in output)
-                {
-                    sb.Append(b.ToString("X2"));
-                    sb.Append(" ");
-                }
-                
-                //Display encrypted data
-                txtOutput.Text = sb.ToString(0, sb.Length - 1);
+             
+                //Convert to hex string separated by spaces and display encrypted data
+                txtOutput.Text = ByteArray_to_String(output);
             }
             else
             {
@@ -303,17 +322,10 @@ namespace AES_Encryptor
                     //Get decrypted data
                     byte[] output = ms_output.ToArray();
 
-                    //Display decrypted data as hex string
+                    //Convert to hex string separated by spaces and display decrypted data
                     if (chkDecryptionOutputHex.Checked)
-                    {
-                        StringBuilder sb = new StringBuilder();
-                        foreach (byte b in output)
-                        {
-                            sb.Append(b.ToString("X2"));
-                            sb.Append(" ");
-                        }
-
-                        txtOutput.Text = sb.ToString(0, sb.Length - 1);
+                    {                        
+                        txtOutput.Text = ByteArray_to_String(output);
                     }
                     //Display decrypted data as text
                     else
@@ -330,6 +342,28 @@ namespace AES_Encryptor
             {
                 throw new Exception("No Input type was selected");
             }
+        }
+
+        private void btnRandomKey_Click(object sender, EventArgs e)
+        {
+            byte[] key = new byte[32];
+
+            //Get secure random key
+            random.GetBytes(key);
+            
+            //Display generated key
+            txtKey.Text = ByteArray_to_String(key);
+        }
+
+        private void btnRandomIV_Click(object sender, EventArgs e)
+        {
+            byte[] iv = new byte[16];
+
+            //Get secure random IV
+            random.GetBytes(iv);
+
+            //Display generated IV
+            txtIV.Text = ByteArray_to_String(iv);
         }
     }
 }
