@@ -72,6 +72,7 @@
             // 
             this.txtInput.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.txtInput.Location = new System.Drawing.Point(12, 25);
+            this.txtInput.MaxLength = 2147483647;
             this.txtInput.Name = "txtInput";
             this.txtInput.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txtInput.Size = new System.Drawing.Size(479, 20);
@@ -81,6 +82,7 @@
             // 
             this.txtOutput.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.txtOutput.Location = new System.Drawing.Point(12, 64);
+            this.txtOutput.MaxLength = 2147483647;
             this.txtOutput.Name = "txtOutput";
             this.txtOutput.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txtOutput.Size = new System.Drawing.Size(479, 20);
@@ -205,6 +207,7 @@
             this.btnDecrypt.Text = "Decrypt";
             this.btnDecrypt.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnDecrypt.UseVisualStyleBackColor = true;
+            this.btnDecrypt.Click += new System.EventHandler(this.btnDecrypt_Click);
             // 
             // pbProgress
             // 
@@ -218,9 +221,9 @@
             this.chkInputHex.AutoSize = true;
             this.chkInputHex.Location = new System.Drawing.Point(307, 8);
             this.chkInputHex.Name = "chkInputHex";
-            this.chkInputHex.Size = new System.Drawing.Size(124, 17);
+            this.chkInputHex.Size = new System.Drawing.Size(176, 17);
             this.chkInputHex.TabIndex = 14;
-            this.chkInputHex.Text = "Input as hex values?";
+            this.chkInputHex.Text = "Encryption input as hex values?";
             this.chkInputHex.UseVisualStyleBackColor = true;
             // 
             // chkDecryptionOutputHex
