@@ -240,6 +240,9 @@ namespace AES_Encryptor
             }
             else if (rdbText.Checked)
             {
+                //Clear output textbox
+                txtOutput.Text = string.Empty;
+
                 //Create AES object
                 AES aes = new AES(AES.KeyLength.AES256);
                 AES_Set_Key(aes, txtKey.Text);
@@ -270,6 +273,63 @@ namespace AES_Encryptor
             {
                 throw new Exception("No Input type was selected");
             }
-        }        
+        }
+
+        private void btnDecrypt_Click(object sender, EventArgs e)
+        {
+            if (rdbFile.Checked)
+            {
+                throw new NotImplementedException();
+            }
+            else if (rdbText.Checked)
+            {
+                //Clear output textbox
+                txtOutput.Text = string.Empty;
+
+                //Create AES object
+                AES aes = new AES(AES.KeyLength.AES256);
+                AES_Set_Key(aes, txtKey.Text);
+                AES_Set_IV(aes, txtIV.Text);
+
+                //Prepare input and output streams
+                MemoryStream ms_input = new MemoryStream(HexString_to_ByteArray(String_to_HexString(txtInput.Text)));
+                MemoryStream ms_output = new MemoryStream();
+
+                try
+                {
+                    //Decrypt data
+                    aes.Decrypt_CBC_PKCS7(ms_input, ms_output);
+
+                    //Get decrypted data
+                    byte[] output = ms_output.ToArray();
+
+                    //Display decrypted data as hex string
+                    if (chkDecryptionOutputHex.Checked)
+                    {
+                        StringBuilder sb = new StringBuilder();
+                        foreach (byte b in output)
+                        {
+                            sb.Append(b.ToString("X2"));
+                            sb.Append(" ");
+                        }
+
+                        txtOutput.Text = sb.ToString(0, sb.Length - 1);
+                    }
+                    //Display decrypted data as text
+                    else
+                    {
+                        txtOutput.Text = Encoding.UTF8.GetString(output);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message.ToString(), Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
+            {
+                throw new Exception("No Input type was selected");
+            }
+        }
     }
 }
