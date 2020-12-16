@@ -263,7 +263,28 @@ namespace AES_Encryptor
         {
             if (rdbFile.Checked)
             {
-                throw new NotImplementedException();
+                try
+                {
+                    //Prepare input and output streams
+                    using (FileStream input = new FileStream(txtInput.Text, FileMode.Open))
+                    using (FileStream output = new FileStream(txtOutput.Text, FileMode.Create))
+                    {
+                        //Create AES object
+                        AES aes = new AES(AES.KeyLength.AES256);
+                        AES_Set_Key(aes, txtKey.Text);
+                        AES_Set_IV(aes, txtIV.Text);
+
+                        //Encrypt data
+                        aes.Encrypt_CBC_PKCS7(input, output);
+
+                        //Display message for the user
+                        MessageBox.Show("File encrypted successfully.", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message.ToString(), Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
             else if (rdbText.Checked)
             {
