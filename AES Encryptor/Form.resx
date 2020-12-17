@@ -152,20 +152,18 @@
   </data>
   <data name="btnRandomKey.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAHdElNRQfkDAsODSTQwy6iAAAAeElEQVQ4T6VOCQ6AMAjb
-        /1/lz9ACdYTsYNqkMKCtNhH5RStPqzKa1avFDlsMA7A8pRs566IM19OHbgHoO2adjeGwQtKhKAFd+kGu
-        0Ekg6dSs6/fhwhgQezaS/TEwkkA5YIZyQP7y8R9k46cAkjNQDpihFLAjtZ3SbqtLiSSYXxl2AAAAAElF
-        TkSuQmCC
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
+        wwAADsMBx2+oZAAAAAd0SU1FB+QMCw4NJNDDLqIAAAB4SURBVDhPpU4JDoAwCNv/X+XP0AJ1hOxg2qQw
+        oK02EflFK0+rMprVq8UOWwwDsDylGznrogzX04duAeg7Zp2N4bBC0qEoAV36Qa7QSSDp1Kzr9+HCGBB7
+        NpL9MTCSQDlghnJA/vLxH2TjpwCSM1AOmKEUsCO1ndJuq0uJJJhfGXYAAAAASUVORK5CYII=
 </value>
   </data>
   <data name="btnRandomIV.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAHdElNRQfkDAsODSTQwy6iAAAAeElEQVQ4T6VOCQ6AMAjb
-        /1/lz9ACdYTsYNqkMKCtNhH5RStPqzKa1avFDlsMA7A8pRs566IM19OHbgHoO2adjeGwQtKhKAFd+kGu
-        0Ekg6dSs6/fhwhgQezaS/TEwkkA5YIZyQP7y8R9k46cAkjNQDpihFLAjtZ3SbqtLiSSYXxl2AAAAAElF
-        TkSuQmCC
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
+        wwAADsMBx2+oZAAAAAd0SU1FB+QMCw4NJNDDLqIAAAB4SURBVDhPpU4JDoAwCNv/X+XP0AJ1hOxg2qQw
+        oK02EflFK0+rMprVq8UOWwwDsDylGznrogzX04duAeg7Zp2N4bBC0qEoAV36Qa7QSSDp1Kzr9+HCGBB7
+        NpL9MTCSQDlghnJA/vLxH2TjpwCSM1AOmKEUsCO1ndJuq0uJJJhfGXYAAAAASUVORK5CYII=
 </value>
   </data>
 </root>

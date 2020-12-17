@@ -295,10 +295,13 @@ namespace AES_Encryptor
                         AES_Set_IV(aes, txtIV.Text);
 
                         //Encrypt data asynchronously
-                        _ = Task.Run(() => aes.Encrypt_CBC_PKCS7(input, output));
+                        Task t = Task.Run(() => aes.Encrypt_CBC_PKCS7(input, output));
 
                         //Update ProgressBar asynchronously, wait for completion
                         await Task.Run(() => UpdateProgressBar(input));
+
+                        //Rethrow exceptions
+                        t.Wait();
 
                         //Display message for the user
                         MessageBox.Show("File encrypted successfully.", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -307,9 +310,35 @@ namespace AES_Encryptor
                         pbProgress.Value = 0;
                     }
                 }
+                catch (AggregateException ae)
+                {
+                    //Try to delete broken output file
+                    try
+                    {
+                        if (File.Exists(txtOutput.Text)) File.Delete(txtOutput.Text);
+                    }
+                    catch { }
+
+                    //Display inner exception
+                    MessageBox.Show(ae.InnerException.Message.ToString(), Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                    //Reset ProgressBar
+                    pbProgress.Value = 0;
+                }
                 catch (Exception ex)
                 {
+                    //Try to delete broken output file
+                    try
+                    {
+                        if (File.Exists(txtOutput.Text)) File.Delete(txtOutput.Text);
+                    }
+                    catch { }
+
+                    //Display exception
                     MessageBox.Show(ex.Message.ToString(), Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                    //Reset ProgressBar
+                    pbProgress.Value = 0;
                 }
             }
             else if (rdbText.Checked)
@@ -341,7 +370,7 @@ namespace AES_Encryptor
             }
         }
 
-        private void btnDecrypt_Click(object sender, EventArgs e)
+        async private void btnDecrypt_Click(object sender, EventArgs e)
         {
             if (rdbFile.Checked)
             {
@@ -356,12 +385,36 @@ namespace AES_Encryptor
                         AES_Set_Key(aes, txtKey.Text);
                         AES_Set_IV(aes, txtIV.Text);
 
-                        //Decrypt data
-                        aes.Decrypt_CBC_PKCS7(input, output);
+                        //Decrypt data asynchronously
+                        Task t = Task.Run(() => aes.Decrypt_CBC_PKCS7(input, output));
+
+                        //Update ProgressBar asynchronously, wait for completion
+                        await Task.Run(() => UpdateProgressBar(input));
+
+                        //Rethrow exceptions
+                        t.Wait();
 
                         //Display message for the user
                         MessageBox.Show("File decrypted successfully.", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                        //Reset ProgressBar
+                        pbProgress.Value = 0;
                     }
+                }
+                catch (AggregateException ae)
+                {
+                    //Try to delete broken output file
+                    try
+                    {
+                        if (File.Exists(txtOutput.Text)) File.Delete(txtOutput.Text);
+                    }
+                    catch { }
+
+                    //Display inner exception
+                    MessageBox.Show(ae.InnerException.Message.ToString(), Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                    //Reset ProgressBar
+                    pbProgress.Value = 0;
                 }
                 catch (Exception ex)
                 {
@@ -372,7 +425,11 @@ namespace AES_Encryptor
                     }
                     catch { }
 
+                    //Display exception
                     MessageBox.Show(ex.Message.ToString(), Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                    //Reset ProgressBar
+                    pbProgress.Value = 0;
                 }
             }
             else if (rdbText.Checked)
