@@ -259,7 +259,27 @@ namespace AES_Encryptor
             }
         }
 
-        private void btnEncrypt_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Function updating the ProgressBar value using Stream data position and length
+        /// </summary>
+        /// <param name="s">Data stream</param>
+        void UpdateProgressBar(Stream s)
+        {
+            while (s.Position < s.Length)
+            {
+                Invoke(new MethodInvoker(() =>
+                {
+                    pbProgress.Value = (int)(s.Position * 100 / s.Length);
+                }));
+                System.Threading.Thread.Sleep(100);
+            }
+            Invoke(new MethodInvoker(() =>
+            {
+                pbProgress.Value = 100;
+            }));
+        }
+
+        async private void btnEncrypt_Click(object sender, EventArgs e)
         {
             if (rdbFile.Checked)
             {
@@ -274,11 +294,17 @@ namespace AES_Encryptor
                         AES_Set_Key(aes, txtKey.Text);
                         AES_Set_IV(aes, txtIV.Text);
 
-                        //Encrypt data
-                        aes.Encrypt_CBC_PKCS7(input, output);
+                        //Encrypt data asynchronously
+                        _ = Task.Run(() => aes.Encrypt_CBC_PKCS7(input, output));
+
+                        //Update ProgressBar asynchronously, wait for completion
+                        await Task.Run(() => UpdateProgressBar(input));
 
                         //Display message for the user
                         MessageBox.Show("File encrypted successfully.", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                        //Reset ProgressBar
+                        pbProgress.Value = 0;
                     }
                 }
                 catch (Exception ex)
