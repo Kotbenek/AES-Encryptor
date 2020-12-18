@@ -696,7 +696,7 @@ namespace AES_Encryptor
         {
             //If (b >> 7) == 0, return (b << 1)
             //If (b >> 7) == 1, return (b << 1) ^ 0x1B
-            return (byte)((b << 1) ^ (((b >> 7) & 0x01)) * 0x1B);
+            return (byte)((b << 1) ^ (((b >> 7) & 0x01) * 0x1B));
         }
     }
 }
