@@ -309,22 +309,7 @@ namespace AES_Encryptor
                         //Reset ProgressBar
                         pbProgress.Value = 0;
                     }
-                }
-                catch (AggregateException ae)
-                {
-                    //Try to delete broken output file
-                    try
-                    {
-                        if (File.Exists(txtOutput.Text)) File.Delete(txtOutput.Text);
-                    }
-                    catch { }
-
-                    //Display inner exception
-                    MessageBox.Show(ae.InnerException.Message.ToString(), Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-                    //Reset ProgressBar
-                    pbProgress.Value = 0;
-                }
+                }                
                 catch (Exception ex)
                 {
                     //Try to delete broken output file
@@ -335,7 +320,7 @@ namespace AES_Encryptor
                     catch { }
 
                     //Display exception
-                    MessageBox.Show(ex.Message.ToString(), Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show((ex.InnerException ?? ex).Message.ToString(), Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                     //Reset ProgressBar
                     pbProgress.Value = 0;
@@ -400,22 +385,7 @@ namespace AES_Encryptor
                         //Reset ProgressBar
                         pbProgress.Value = 0;
                     }
-                }
-                catch (AggregateException ae)
-                {
-                    //Try to delete broken output file
-                    try
-                    {
-                        if (File.Exists(txtOutput.Text)) File.Delete(txtOutput.Text);
-                    }
-                    catch { }
-
-                    //Display inner exception
-                    MessageBox.Show(ae.InnerException.Message.ToString(), Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-                    //Reset ProgressBar
-                    pbProgress.Value = 0;
-                }
+                }                
                 catch (Exception ex)
                 {
                     //Try to delete broken output file
@@ -426,7 +396,7 @@ namespace AES_Encryptor
                     catch { }
 
                     //Display exception
-                    MessageBox.Show(ex.Message.ToString(), Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show((ex.InnerException ?? ex).Message.ToString(), Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                     //Reset ProgressBar
                     pbProgress.Value = 0;
