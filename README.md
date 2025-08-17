@@ -1,3 +1,8 @@
+# Moved to Codeberg
+
+This repository was moved to Codeberg:
+https://codeberg.org/Kotbenek/AES-Encryptor
+
 # AES Encryptor
 Advanced Encryption Standard (also known as Rijndael) is a specification for data encryption.
 
